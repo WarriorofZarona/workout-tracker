@@ -7,7 +7,7 @@ var workoutSchema = new Schema({
         default: Date.now
     },
     exercises: {
-        type: Object,
+        type: Array,
         required: true
     }
 
