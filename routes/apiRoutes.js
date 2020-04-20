@@ -1,29 +1,17 @@
-
-
-// Code here
-// According to the api.js file, links need to go to /api/workouts/ for getLastWorkout
-// /api/workouts/id to addExercise
-// /api/workouts to createWorkout
-// /api/workouts/range to getWorkoutsInRange
-
 const db = require("../models");
 const router = require("express");
 
 module.exports = app => {
-
     app.post("/api/workouts/", (req, res) => {
 
-        console.log(req.body)
         db.Workout.create({})
             .then(dbWorkouts => {
                 res.json(dbWorkouts)
             })
             .catch(err => {
                 res.json(err)
-            })
-    })
-
-
+            });
+    });
 
     app.get("/api/workouts/", (req, res) => {
 
@@ -34,9 +22,8 @@ module.exports = app => {
             })
             .catch(err => {
                 res.json(err)
-            })
-    })
-
+            });
+    });
 
     app.get("/api/workouts/range", (req, res) => {
 
@@ -48,17 +35,15 @@ module.exports = app => {
             })
             .catch(err => {
                 res.json(err)
-            })
-    })
-
-
-    app.put("/api/workouts/:id", function (req, res) {
-        console.log(req.body)
-        console.log(req.params.id)
-        db.Workout.update({ _id: req.params.id }, { $push: { exercises: req.body } }).then(function (dbWorkouts) {
-            res.json(dbWorkouts);
-        });
+            });
     });
 
+    app.put("/api/workouts/:id", (req, res) => {
+
+        db.Workout.update({ _id: req.params.id }, { $push: { exercises: req.body } })
+            .then((dbWorkouts) => {
+                res.json(dbWorkouts);
+            });
+    });
 
 };
