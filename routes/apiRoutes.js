@@ -37,9 +37,11 @@ module.exports = app => {
             })
     })
 
-    app.get("/api/workouts/:id", (req, res) => {
 
-        db.Workout.find({ _id: req.params.id })
+    app.get("/api/workouts/range", (req, res) => {
+
+        db.Workout.find({})
+            .limit(7)
             .then(dbWorkouts => {
                 console.log(dbWorkouts)
                 res.json(dbWorkouts)
@@ -48,7 +50,6 @@ module.exports = app => {
                 res.json(err)
             })
     })
-
 
 
     app.put("/api/workouts/:id", function (req, res) {
