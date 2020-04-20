@@ -7,26 +7,57 @@
 // /api/workouts/range to getWorkoutsInRange
 
 const db = require("../models");
+const router = require("express");
 
-module.exports = function (app) {
-    app.get("/api/workouts", function (req, res) {
-        db.Workout.find({}).then(function (dbWorkouts) {
-            res.json(dbWorkouts)
-        })
-    });
+module.exports = app => {
+
+    app.post("/api/workouts/", (req, res) => {
+
+        console.log(req.body)
+        db.Workout.create({})
+            .then(dbWorkouts => {
+                res.json(dbWorkouts)
+            })
+            .catch(err => {
+                res.json(err)
+            })
+    })
+
+
+
+    app.get("/api/workouts/", (req, res) => {
+
+        db.Workout.find({})
+            .then(dbWorkouts => {
+                console.log(dbWorkouts)
+                res.json(dbWorkouts)
+            })
+            .catch(err => {
+                res.json(err)
+            })
+    })
+
+    app.get("/api/workouts/:id", (req, res) => {
+
+        db.Workout.find({ _id: req.params.id })
+            .then(dbWorkouts => {
+                console.log(dbWorkouts)
+                res.json(dbWorkouts)
+            })
+            .catch(err => {
+                res.json(err)
+            })
+    })
+
 
 
     app.put("/api/workouts/:id", function (req, res) {
         console.log(req.body)
-        console.log(req.paramds.id)
-        db.Image.update({ _id: req.params.id }, { $push: { exercises: req.body } }).then(function (dbWorkouts) {
+        console.log(req.params.id)
+        db.Workout.update({ _id: req.params.id }, { $push: { exercises: req.body } }).then(function (dbWorkouts) {
             res.json(dbWorkouts);
         });
     });
 
-    //     app.post("api/workouts/", (req, res) => {
 
-    //         console.log(req.body)
-    //         db.Workout.insert(req.body)
-    //     })
 };
