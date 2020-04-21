@@ -1,5 +1,4 @@
 const db = require("../models");
-const router = require("express");
 
 module.exports = app => {
     app.post("/api/workouts/", (req, res) => {
