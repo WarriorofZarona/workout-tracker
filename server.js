@@ -14,7 +14,7 @@ app.use(express.static("public"));
 require("./routes/apiRoutes.js")(app);
 require("./routes/htmlRoutes.js")(app);
 
-mongoose.connect("mongodb://heroku_kncc83sc:rd27jel68s5dh7d8b42ot48pg8@ds011268.mlab.com:11268/heroku_kncc83sc" || "mongodb://localhost/workout", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
 
 app.listen(3000, () => {
     console.log(`App running on port ${PORT}!`);
